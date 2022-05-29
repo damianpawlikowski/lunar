@@ -5,8 +5,8 @@ from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import unset_jwt_cookies
-from flask_jwt_extended import create_access_token
 from flask_jwt_extended import set_access_cookies
+from flask_jwt_extended import create_access_token
 
 from lunar.extensions import db
 from lunar.account.models import Account
@@ -45,7 +45,7 @@ def login_account(name, password):
         200,
         data=account_schema.dump(account)
     )
-    access_token = create_access_token(account)
+    access_token = create_access_token(account.id)
     set_access_cookies(response, access_token)
     return response
 

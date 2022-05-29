@@ -8,6 +8,7 @@ from lunar.game.views import game_bp
 from lunar.ticket.views import ticket_bp
 from lunar.player.views import player_bp
 from lunar.account.views import account_bp
+from lunar.extensions import refresh_expiring_jwt
 
 
 def register_extensions(app):
@@ -32,5 +33,7 @@ def create_app(config=ProdConfig):
 
     register_extensions(app)
     register_blueprints(app)
+
+    app.after_request(refresh_expiring_jwt)
 
     return app

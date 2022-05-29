@@ -1,7 +1,15 @@
+from datetime import datetime
+from datetime import timezone
+from datetime import timedelta
+
 from flask_cors import CORS
 from flask_sqlalchemy import Model
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import get_jwt
 from flask_jwt_extended import JWTManager
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import set_access_cookies
+from flask_jwt_extended import create_access_token
 
 
 # SQLA Object-Relational Mapping
@@ -37,7 +45,23 @@ db = SQLAlchemy(model_class=BaseModel)
 
 # JSON Web Tokens
 jwt = JWTManager()
-jwt.user_identity_loader(lambda account: account.id)
+
+
+def refresh_expiring_jwt(response):
+    """Instead of refresh token stored in the cookie, JWT is refreshed
+    implicitly after every request if it is close to expire. This solution
+    is much more secure.
+    """
+    try:
+        expire_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
+        if target_timestamp > expire_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        return response
 
 
 # Cross-Origin Resource Sharing
