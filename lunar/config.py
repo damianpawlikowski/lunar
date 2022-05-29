@@ -13,6 +13,9 @@ class Config:
     JWT_ACCESS_COOKIE_NAME = "Access-Token"
     JWT_COOKIE_CSRF_PROTECT = False
 
+    WTF_CSRF_FIELD_NAME = "CSRF-Token"
+    WTF_CSRF_SSL_STRICT = False
+
     CORS_SUPPORTS_CREDENTIALS = True
 
 

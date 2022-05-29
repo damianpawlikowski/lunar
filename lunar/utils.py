@@ -2,6 +2,7 @@ import hashlib
 
 from marshmallow import Schema
 from marshmallow import EXCLUDE
+from flask_wtf.csrf import generate_csrf
 
 from lunar.extensions import db
 
@@ -44,3 +45,11 @@ class BaseSchema(Schema):
     class Meta:
         strict = True
         unknown = EXCLUDE
+
+
+def set_csrf_token_cookie(response):
+    """Generate and set CSRF Token in the cookie. From client side
+    expected is to resent this within ``X-CSRF-Token`` header.
+    """
+    response.set_cookie("CSRF-Token", generate_csrf())
+    return response

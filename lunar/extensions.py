@@ -3,6 +3,7 @@ from datetime import timezone
 from datetime import timedelta
 
 from flask_cors import CORS
+from flask_wtf import CSRFProtect
 from flask_sqlalchemy import Model
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import get_jwt
@@ -66,3 +67,7 @@ def refresh_expiring_jwt(response):
 
 # Cross-Origin Resource Sharing
 cors = CORS()
+
+
+# Cross-site Request Forgery
+csrf = CSRFProtect()
