@@ -5,6 +5,7 @@ from datetime import timedelta
 from flask_cors import CORS
 from flask_wtf import CSRFProtect
 from flask_sqlalchemy import Model
+from flask_apispec import FlaskApiSpec
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import get_jwt
 from flask_jwt_extended import JWTManager
@@ -71,3 +72,6 @@ cors = CORS()
 
 # Cross-site Request Forgery
 csrf = CSRFProtect()
+
+# Swagger Docs
+docs = FlaskApiSpec()
