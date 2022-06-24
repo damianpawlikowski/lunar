@@ -26,3 +26,9 @@ anty-CSRF implementation.
 This product is in the early stage of development and is not near ready for production.
 
 Make sure to check out [Fronted API](https://github.com/damianpawlikowski/lunar-ui) of this project.
+
+
+## SCREENSHOTS
+![account](https://i.imgur.com/qhi5pR2.png)
+![highscores](https://i.imgur.com/yEHDZ5T.png)
+![tickets](https://i.imgur.com/LhVL5cj.png)
